@@ -87,5 +87,5 @@ tuner.search(preprocessing.train_generator, epochs = 10, validation_data = prepr
 # testing
 testing.testModel(model = model)
 
-# generating 
-matrix.confMatrix(mode = model)
+# generating confusion matrix
+matrix.confMatrix(model = model)
