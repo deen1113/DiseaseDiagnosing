@@ -5,7 +5,12 @@ import numpy as np
 import preprocessing
 
 '''
-
+This class is used to visualize a confusion matrix to see how well the model is doing 
+with its predictions. A confusion matrix does well in providing a specific breakdown of 
+how the model performs for each possible diagnoses. It shows:
+True positives: correct predictions for each class.
+False positives: incorrectly predicted as a class.
+False negatives: missed predictions for a class.
 '''
 
 def confMatrix(model):
