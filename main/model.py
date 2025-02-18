@@ -1,5 +1,6 @@
 import tensorflow as tf
-import preprocessing, callbacks
+import keras_tuner as kt
+import preprocessing, callbacks, testing, matrix
 from tensorflow import ResNet50, Dense, GlobalAveragePooling2D, Dropout, Model
 
 # Using ResNet50 as pretrained model to transfer learning to (exclude top layers)
@@ -32,8 +33,8 @@ model.compile(
     loss = 'categorical_crossentropy',  # for multi-class classification
     metrics = [
         'accuracy',
-        tf.keras.metrics.Precision(name='precision'),
-        tf.keras.metrics.Recall(name='recall')
+        tf.keras.metrics.Precision(name = 'precision'),
+        tf.keras.metrics.Recall(name = 'recall')
     ]
 )
 
@@ -61,4 +62,30 @@ model.fit(
     preprocessing.train_generator, 
     epochs = 10, 
     validation_data = preprocessing.val_generator
+)
+
+# hypertuning model
+
+# function to use with tuner
+def build_model(hp):
+    base_model = ResNet50(include_top=False, input_shape=(224, 224, 3))
+    output = GlobalAveragePooling2D()(base_model.output)
+    output = Dense(hp.Int('units', 128, 512, step=128), activation='relu')(output)
+    predictions = Dense(4, activation='softmax')(output)
+    model = Model(inputs=base_model.input, outputs=predictions)
+    model.compile(
+        optimizer=tf.keras.optimizers.Adam(hp.Choice('lr', [1e-4, 1e-5])),
+        loss='categorical_crossentropy',
+        metrics=['accuracy']
     )
+    return model
+
+
+tuner = kt.RandomSearch(build_model, objective = 'val_accuracy', max_trials = 10)
+tuner.search(preprocessing.train_generator, epochs = 10, validation_data = preprocessing.val_generator)
+
+# testing
+testing.testModel(model = model)
+
+# generating 
+matrix.confMatrix(mode = model)
