@@ -42,3 +42,11 @@ val_generator = val_test_datagen.flow_from_directory(
     class_mode='categorical',
     shuffle=False
 )
+
+test_generator = val_test_datagen.flow_from_directory(
+    directory='processed_data/test',
+    target_size=(224, 224),
+    batch_size=32,
+    class_mode='categorical',
+    shuffle=False  
+)
