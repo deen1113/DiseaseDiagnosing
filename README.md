@@ -28,7 +28,7 @@ DiseaseDiagnosing/\
 │   └── test/\
 ├── models/\
 │   └── best_model.h5\
-├── scripts/\
+├── main/\
 │   ├── model.py\
 |   ├── evaluation.py\
 |   ├── matrix.py\
