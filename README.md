@@ -52,6 +52,14 @@ Use the evaluation.py script to test the model after training. Uses best model s
 - Confusion matrix visualization
 - Classification report
 
+## Predictions
+To have the model make predictions, first run app.py to start the server, then run predict.py with an image filepath.
+```bash
+python main/app.py
+python main/predict.py file/path/to/img.png
+```
+The model will give a prediction of the diagnoses of the xray from the 4 classes.
+
 ## Acknowledgments
 Dataset from COVID-19 Radiography Database
 
