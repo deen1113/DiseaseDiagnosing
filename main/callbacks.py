@@ -1,4 +1,4 @@
-from tensorflow import EarlyStopping, ReduceLROnPlateau, ModelCheckpoint
+from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau, ModelCheckpoint
 
 '''
 Callbacks are used to improve training stability and performance.

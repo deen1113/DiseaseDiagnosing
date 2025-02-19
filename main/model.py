@@ -1,7 +1,9 @@
 import tensorflow as tf
 import keras_tuner as kt
-import preprocessing, callbacks, testing, matrix
-from tensorflow import ResNet50, Dense, GlobalAveragePooling2D, Dropout, Model
+import preprocessing, callbacks
+from tensorflow.keras.applications import ResNet50
+from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout
+from tensorflow.keras.models import Model
 
 # Using ResNet50 as pretrained model to transfer learning to (exclude top layers)
 base_model = ResNet50(
@@ -51,7 +53,7 @@ model_history = model.fit(
 for layer in base_model.layers[15:]:
     layer.trainable = True
 
-# recompiling model using smaller learning rate
+# recompiling model using smaller learning rate8
 model.compile(
     optimizer=tf.keras.optimizers.Adam(learning_rate=1e-5),
     loss='categorical_crossentropy',
@@ -84,8 +86,4 @@ def build_model(hp):
 tuner = kt.RandomSearch(build_model, objective = 'val_accuracy', max_trials = 10)
 tuner.search(preprocessing.train_generator, epochs = 10, validation_data = preprocessing.val_generator)
 
-# testing
-testing.testModel(model = model)
-
-# generating confusion matrix
-matrix.confMatrix(model = model)
+model.save('models/best_model.h5')
