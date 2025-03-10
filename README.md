@@ -1,6 +1,10 @@
-# X-ray Disease Diagnosing Project
+# X-Ray Disease Diagnosing Project
 
 A machine learning project to classify lung X-ray images into four categories: **COVID**, **Lung Opacity**, **Normal**, and **Viral Pneumonia** using transfer learning with ResNet50.
+
+## About This Project
+
+As my first machine learning project, I wanted to create something that while teaching me how to use tools such as Tensorflow/Keras, would still have the ability to have an impact on the world. After searching through kaggle databases, I found these lung x-rays and decided that I would create a model that would be able to identify and diagnose what was wrong with a given lung x-ray, with the intention of the model eventually being able to diagnose more than just the current four classes.
 
 ## Features
 - Transfer learning with ResNet50 base model
@@ -12,6 +16,8 @@ A machine learning project to classify lung X-ray images into four categories: *
 ## Installation
 
 ### Requirements
+- Kaggle Covid-19 Radiography Database
+    - Link: https://www.kaggle.com/datasets/tawsifurrahman/covid19-radiography-database
 - Python 3.9+
 - TensorFlow 2.x
 - Required packages:
@@ -59,10 +65,3 @@ python main/app.py
 python main/predict.py file/path/to/img.png
 ```
 The model will give a prediction of the diagnoses of the xray from the 4 classes.
-
-## Acknowledgments
-Dataset from COVID-19 Radiography Database
-
-Inspired by COVID-19 detection research papers
-
-TensorFlow/Keras documentation
